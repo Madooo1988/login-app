@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>2S Fiber - بوابة المشتركين</title>
+    
+    <link rel="apple-touch-icon" href="logo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <style>
+        /* التنسيقات الأساسية المستوحاة من هويتك البصرية */
+        body, html { 
+            margin: 0; padding: 0; height: 100%; width: 100%; 
+            overflow: hidden; background: #010c1c;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .bg-glow {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #0a2d5e 0%, #010c1c 100%);
+            z-index: 1;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 40px; padding: 40px 25px;
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255,255,255,0.12);
+            width: 85%; max-width: 320px;
+            text-align: center; color: white;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            z-index: 10; position: relative;
+            animation: slideUp 1s ease-out;
+        }
+
+        img.logo { width: 90px; height: 90px; border-radius: 22px; margin-bottom: 15px; animation: pulseLogo 3s infinite; }
+        h2 { margin: 0 0 5px 0; font-size: 22px; font-weight: 700; }
+        p.welcome { font-size: 12px; opacity: 0.6; margin-bottom: 20px; }
+
+        .btn {
+            display: block; padding: 15px;
+            background: linear-gradient(135deg, #007bff 0%, #004085 100%);
+            color: white; text-decoration: none; border-radius: 15px;
+            font-weight: 700; font-size: 17px;
+            margin-bottom: 30px; animation: pulseBtn 2s infinite;
+        }
+
+        /* تصميم نافذة التنبيه الاحترافية المخصصة */
+        #custom-alert {
+            display: none; /* مخفية افتراضياً */
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center; align-items: center;
+        }
+
+        .alert-box {
+            background: rgba(25, 25, 35, 0.95);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 30px;
+            padding: 30px;
+            width: 80%; max-width: 280px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .alert-box h3 { color: #ffc107; margin-top: 0; font-size: 18px; }
+        .alert-box p { font-size: 14px; line-height: 1.6; opacity: 0.9; text-align: right; direction: rtl; }
+        
+        .close-alert-btn {
+            background: #ffc107; color: #000;
+            padding: 12px 25px; border-radius: 12px;
+            border: none; font-weight: bold; font-size: 14px;
+            margin-top: 20px; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        /* الحركات */
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseLogo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes pulseBtn { 0% { box-shadow: 0 0 0 0 rgba(0,123,255,0.6); } 70% { box-shadow: 0 0 0 10px rgba(0,123,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,123,255,0); } }
+    </style>
+</head>
+<body>
+    <div class="bg-glow"></div>
+    <div class="glass-card">
+        <img src="logo.png" alt="2S Fiber" class="logo">
+        <h2>🌐 شبكة تو إس - فايبر</h2>
+        <p class="welcome">👋 مرحباً بك في لوحة التحكم</p>
+        <a href="http://my.2s.org:7404/user/login.php" target="_blank" class="btn">🚀 دخول للمشتركين</a>
+    </div>
+
+    <div id="custom-alert">
+        <div class="alert-box">
+            <h3>📲 تثبيت التطبيق</h3>
+            <p>للوصول السريع لخدمات 2S Fiber، ننصحك بحفظ الرابط كتطبيق:<br><br>
+               1️⃣ اضغط زر <b>المشاركة</b> بالمتصفح.<br>
+               2️⃣ اختر <b>(إضافة للشاشة الرئيسية)</b>.<br>
+               3️⃣ اضغط على <b>إضافة</b> ✅
+            </p>
+            <button class="close-alert-btn" onclick="closeMyAlert()">فهمت ذلك، شكراً</button>
+        </div>
+    </div>
+
+    <script>
+        // تظهر الرسالة تلقائياً بعد 1.5 ثانية من فتح الصفحة
+        window.onload = function() {
+            setTimeout(function() {
+                // تظهر فقط إذا لم يكن الموقع قد فتح كـ تطبيق بالفعل
+                if (!window.navigator.standalone) {
+                    document.getElementById('custom-alert').style.display = 'flex';
+                }
+            }, 1500);
+        };
+
+        function closeMyAlert() {
+            document.getElementById('custom-alert').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
